@@ -13,7 +13,7 @@ In this project we attempt to tackle the problem of scale-ambiguity in estimated
 As a proof of concept, we apply this idea to traffic footage, where the goal is to get good distance estimates from a dash-camera to any object in the scene.
 We use the license plates with standardized real world dimensions as our prior knowledge, and use object detection to find the image dimensions of the plate.
 
-![Runtime example](report/Figures/dashcam-example.png)
+![Runtime example](dashcam-example.png)
 
 # Usage
 To use the script, you need to provide the following parameters in `main.py`
