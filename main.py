@@ -14,8 +14,10 @@ from generalDetection import GeneralDetector
 These extra functions should be moved to a utils file later
 '''
 def drawDetections(img, detections, label='vehicle'):
-    # detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
-    # Draw detections and add depth values as a label to the rectangle
+    '''
+    detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
+    Draw detections and add depth values as a label to the rectangle
+    '''
     color = (0, 255, 0) if label == 'vehicle' else (0, 255, 255) # green for vehicles, yellow otherwise
     detection_img = img.copy()
     for index, row in detections.iterrows():
@@ -34,9 +36,11 @@ def drawDetections(img, detections, label='vehicle'):
 
 # Gets the minimum depth from depth map within a bounding box, currently used to determine the depth for detected vehicles.
 def getMinDepth(depth, detections):
-    # detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
-    # Get depth of each detection
-    # Add depth to detection data frame as a new column
+    '''
+    detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
+    Get depth of each detection
+    Add depth to detection data frame as a new column
+    '''
     depth_per_detection = []
     for i, detection in detections.iterrows():
         xmin, ymin, xmax, ymax = detection["xmin"], detection["ymin"], detection["xmax"], detection["ymax"]
@@ -53,9 +57,11 @@ def getMinDepth(depth, detections):
 
 # Taking the median is probably better, that way if any object gets infront of the detected car, it is less likely to pick the depth value of that object over the car.
 def getMedianDepth(depth, detections):
-    # detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
-    # Get depth of each detection
-    # Add depth to detection data frame as a new column
+    '''
+    detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
+    Get depth of each detection
+    Add depth to detection data frame as a new column
+    '''
     depth_per_detection = []
     for i, detection in detections.iterrows():
         xmin, ymin, xmax, ymax = detection["xmin"], detection["ymin"], detection["xmax"], detection["ymax"]
@@ -118,9 +124,11 @@ def estimatePlateDepth(detections, org_img, real_world_dims=(0.520, 0.110), foca
     return pixel_coords
 
 def cropDetection(src_img, detections, obj_type='vehicle'):
-    # detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
-    # Draw detections and add depth values as a label to the rectangle
-    # Returns a list of tuples containing the cropped images and location of the cropped image in the original image
+    '''
+    detections is a pandas dataframe with columns: xmin, ymin, xmax, ymax, confidence, class, name
+    Draw detections and add depth values as a label to the rectangle
+    Returns a list of tuples containing the cropped images and location of the cropped image in the original image
+    '''
     if obj_type == 'vehicle':
         detection_img = src_img.copy()
         img = src_img
