@@ -3,11 +3,12 @@ import os
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-'''
-Uses a pre-trained MiDaS model to estimate the depth of a monocular image.
-It is fairly slow without a GPU, but it is possible to use in real time with a GPU.
-'''
+
 class DepthEstimator:
+    '''
+    Uses a pre-trained MiDaS model to estimate the depth of a monocular image.
+    It is fairly slow without a GPU, but it is possible to use in real time with a GPU.
+    '''
     def __init__(self, model_path=None, model_type='DPT_Large', device='cpu'):
         self.model_type = model_type
         self.device = device # cpu or cuda
@@ -71,13 +72,11 @@ class DepthEstimator:
         if(len(knownMeasurements) < 1):
             print("No correction points")
             return depthMap * self.scale_factors[-1] if len(self.scale_factors) != 0 else depthMap
-
         elif(len(knownMeasurements) == 1):
             depthValue = depthMap[knownMeasurements_idx[0, 0], knownMeasurements_idx[0, 1]]
             scalingFactor = knownMeasurements[0]/depthValue
             print("scaling factor =", knownMeasurements[0], "/", depthValue, "=", scalingFactor)
             updatedDepthMap = depthMap * scalingFactor
-
         else:
             #get known measurements (normally retrived through object detection)
             true_depths = knownMeasurements.reshape(-1, 1)

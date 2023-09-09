@@ -1,16 +1,16 @@
 import torch
 import cv2
 import numpy as np
-from PIL import Image
-'''
-Uses a pre-trained ZoeDepth model to estimate the depth of a monocular image.
-In contrast to MiDaS, this model attempts to recover the metric scale, but often it is way off the true scale.
-It does however produce depth maps with more detail.
-Don't even bother running this on CPU, its even slow-ish on GPU. 
-'''
+
 torch.hub._validate_not_a_forked_repo=lambda a,b,c: True
 
 class DepthEstimatorZoe:
+    '''
+    Uses a pre-trained ZoeDepth model to estimate the depth of a monocular image.
+    In contrast to MiDaS, this model attempts to recover the metric scale, but often it is way off the true scale.
+    It does however produce depth maps with more detail.
+    Don't even bother running this on CPU, its even slow-ish on GPU. 
+    '''
     def __init__(self, model_type='NK', device='cpu'):
         self.device = device # cpu or cuda
         self.model_type = model_type
